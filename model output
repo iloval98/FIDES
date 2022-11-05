@@ -1,0 +1,16 @@
+<OUTPUT>
+	<COMPOSANT name="RES1" modeltype="Component" type="RESISTOR">
+		<SORTIE type="Lambda_physique" type="phase" level=1>
+			45
+		</SORTIE>
+	<COMPOSANT>
+
+	<COMPOSANT name="RES1" modeltype="Component" type="RESISTOR">
+		<SORTIE type="Lambda_physique" type="Pi_RH">
+			23
+		</SORTIE>
+	<COMPOSANT>
+
+
+
+</OUTPUT>

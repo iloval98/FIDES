@@ -1,0 +1,135 @@
+<VARIABLES_GLOBALES>
+
+	<ASSIGNATION type="T0" unit="°C">
+		293
+	</ASSIGNATION>
+
+</VARIABLES_GLOBALES>
+
+<FORMULE type="Lambda produit" name="Lambda Produit"> # On pourrait aussi définir le tag lambda produit
+	sum(liste_article, Lambda_artiche)
+	
+	<TABLE Type="Liste" name="Nomenclature avec Quantité">
+		# renvoyer vers fichier XML de liste de composant avec paramètres
+		# NOM	TYPZ		SUB TYPE		Quantité	Ohm		Max Power	Applied Power		QUALITY
+		# RES1 	RESISTOR 	RESISTOR_PAPIER	5			340		100			50					CODE?
+		# 
+		#
+		#
+		
+	</TABLE>
+	
+	<RENVOI_MODEL>
+		# Envoyer vers model composant resistir
+	</RENVOI_MODEL>
+
+</FORMULE>
+
+<MODEL type="composants par phases">
+	<MODEL name="composant">
+		<FORMULE type="Phase">
+			sum(i,phase,composant)
+		</FORMULE>
+	</MODEL>
+</MODEL>
+
+
+
+<MODEL level=1 type='somme'>
+
+	<FORMULE type="somme"> # encadre formule lambda
+		sum(i,phase,lambda_physique> # En fait somme_lambda_physique et somme_lambda_physique=sum(i,composant,lambda_physique) mais pour une phase 
+		<PARAMETRES>
+			Phase
+			Lambda_Physique
+		</PARAMETRES>
+		
+		<POINTER name="Lambda_Physique"> # Donner un chemin absolue sur fichier XML de résultat
+			Lambda_Physique # Comment garder instanciation par composants ? 
+		</POINTER>
+	</FORMULE>
+
+</MODEL>
+
+
+<MODEL level=1 type='Composants'>
+<MODEL level=2 type='Resistor'>
+	<FORMULE Type="Lambda_physique"> #Ajouter par phase ? 
+		Pi_TH+Pi_RH
+		<PARAMETRES>
+			Pi_TH
+			Pi_RH
+		</PARAMETRES>
+		<FORMULE Type='Pi_TH'>
+			Gamma_TH_EL*exp(11604*0.15*(1/293-1/(Tambiante_carte+273+A*Pappliquée/Pnominale)))
+			<PARAMETRES>
+				Gamma_TH_EL
+				Tambiante_carte
+				A
+				Pappliquée
+				Pnominale
+			</PARAMETRES>
+			<VARIABLE name="Gamma_TH-EL" senibilite_phase="non">
+				<PARAMETRES>
+					Sous-Ensembe
+				</PARAMETRES>
+				<TABLE>
+					<CONDITION type="IF">
+						<VALEUR type="Sous-ensemble" name="Resistor fixe">
+							0.04
+						</VALEUR>
+						<VALEUR type="Sous-ensemble" name="Resistor forte dissipation">
+							0.04
+						</VALEUR>
+					</CONDITION>
+				</TABLE>
+			
+			</VARIABLE>
+			<VARIABLE name="temperature">
+				<POINTER type="PROFIL">
+				</POINTER>
+			</VARIABLE>
+			<FORMULE_DEVELOPEE>
+				<OPERATION type="MULTIPLICATION">
+				
+				<VARIABLE>
+					Gamma_TCy
+				</VARIABLE>
+				
+				</OPERATION>
+			
+			</FORMULE_DEVELOPEE>
+			
+			
+			
+			
+			
+		</FORMULE>
+		
+		<TABLE type="R" unit="Ohm">
+		
+			<CONDITION type="IF">
+				<SOUS_TYPE type="Resistor paper">
+					54
+				</SOUS_TYPE>
+				<SOUS_TYPE type="Resistor SMD">
+					63
+				</SOUS_TYPE>
+			</CONDITION>
+		
+		</TABLE>
+		
+		<FORMULE type="A" unit="unknown">
+		
+			exp(G*H)
+			
+			<TABLE ...>
+			
+			</TABLE>
+		
+		</FORMULE>
+	</FORMULE>
+	# Question mettre G dans formule ou en dehors (notion de local / global). Plutôt en local donc dans FORMULE
+
+</MODEL>
+</MODEL>

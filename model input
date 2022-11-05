@@ -1,0 +1,40 @@
+<SYSTEM level=1 type="Carte>
+
+	<PROFIL name="Avion" >
+	
+		<PHASE identification=1 name="ON">
+		
+		</PHASES>
+		<PHASE identification=2 name="ON">
+		
+		</PHASES>
+	
+	</PROFIL>
+	
+	<COMPOSANT identification=1> # mettre que des attributs avec formules si nécessaires
+		<TYPE>
+			Resistor
+		</TYPE>
+		<SOUS-TYPE> # ou alors type avec niveau indentation
+		
+		</SOUS-TYPE>
+		<ATTRIBUT TYPE="Ohm" phase="All">
+			55
+		</ATTRIBUT>
+		<ATTRIBUT TYPE="temperature" phase=1> # pas de formules c'est compliqué
+			<VARIABLE name="temperature" >
+				<TABLE>
+					<CONDITION type="IF">
+						<VALEUR type="Phase" phase=1>
+							23
+						</VALEUR>
+						<VALEUR type="Phase" phase=2>
+							15
+						</VALEUR>
+				</TABLE>
+			</VARIABLES>
+		</ATTRIBUT>
+		
+	</COMPOSANT>
+
+</SYSTEM>

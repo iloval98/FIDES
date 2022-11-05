@@ -1,0 +1,34 @@
+<MODEL type="resistor">
+	<FORMULE name="Lambda_physique">  
+		<PARAMETRES name="Pi">
+			Phase
+		</PARAMETRES>
+		<PARAMETRES name="Pi">
+			Lambda_Physique
+		</PARAMETRES>
+		<POINTER> 
+			No pointer - utilisé pour renvoyer vers fichier xml définissant des formules génériques 
+		</POINTER>
+		Pi_TH+Pi_GRMS
+		<FORMULE name="Pi_TH">
+			A*Exp-(Ev*R*(1/T0-1/T))
+			<ATTRIBUT type="Table" Identifiant="A"> 
+				<TABLE>
+					<SWITCH Variable="Composant_type">
+						<CASE Variable="Resistor_Paper">
+							65
+						</CASE>
+						<CASE Variable="Resistor_Plastic">
+							<SWITCH Variable="Resistance_Ohm">
+								<CASE Condition=">500">
+									46
+								</CASE>
+							</SWITCH>
+						</CASE>
+					</SWITCH>
+				</TABLE>
+			</ATTRIBUT>,
+		</FORMULE>
+		
+	</FORMULE>
+</MODEL>
